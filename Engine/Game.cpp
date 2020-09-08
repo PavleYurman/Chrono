@@ -20,6 +20,7 @@
  ******************************************************************************************/
 #include "MainWindow.h"
 #include "Game.h"
+#include <chrono>
 
 Game::Game( MainWindow& wnd )
 	:
@@ -42,4 +43,22 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
+	using std::chrono::steady_clock; // steady_clock je sedaj referenca na lokalnem nivoju za std::chrono::steady_clock
+	//using namespace std; // vnos vseh clanov v funkcijo
+	// V kolikem casu se izrise zelen zaslon?
+	//steady_clock::time_point start = steady_clock::now();
+	auto start = steady_clock::now();
+	for (int y = 0; y < Graphics::ScreenHeight; y++)
+	{
+		for (int x = 0; x < Graphics::ScreenWidth; x++)
+		{
+			gfx.PutPixel(x, y, Colors::Green);
+		}
+	}
+	//steady_clock::time_point end = steady_clock::now();
+	auto end = steady_clock::now();
+	std::chrono::duration<float> runtime = end - start;
+	float durationSeconds = runtime.count(); // kako ves da tole vrne sekunde // v debuggerju vidis :)
+
+	// contunue vid at 13:00
 }
